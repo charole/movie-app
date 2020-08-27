@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Movie from '../components/Movie';
 import './Home.css';
 
-class Home extends React.Component{
-  state = {
+function Home(){
+  const [state, setState] = useState({
     isLoading: true,
     movies: []
-  }
+  });
 
-  getMovies = async () => { 
+  async function getMovies(){ 
     const {
       data: {
         data: {
@@ -20,45 +20,43 @@ class Home extends React.Component{
 
     console.log(movies);
 
-    this.setState({ movies, isLoading: false });
+    setState({ movies, isLoading: false });
   };
 
-  componentDidMount(){
-    this.getMovies();
-  };
+  useEffect(() => {
+    getMovies();
+  }, []);
 
-  render() {
-    const { isLoading, movies } = this.state;
+  const { isLoading, movies } = state;
 
-    return (
-      <section className="container">
-        {isLoading ? (
-          <div className="loader">
-            <span className="loader__text">Loading...</span>
-          </div>
-        ) : 
-        (
-          <div className="movies">
-            {movies.map(item => {
-              const {id, title, year, summary, genres} = item;
-              const poster = item.medium_cover_image;
+  return (
+    <section className="container">
+      {isLoading ? (
+        <div className="loader">
+          <span className="loader__text">Loading...</span>
+        </div>
+      ) : 
+      (
+        <div className="movies">
+          {movies.map(item => {
+            const {id, title, year, summary, genres} = item;
+            const poster = item.medium_cover_image;
 
-              return (
-                <Movie 
-                  title={title} 
-                  key={id} 
-                  year={year} 
-                  summary={summary} 
-                  poster={poster} 
-                  genres={genres}
-                />
-              );
-            })}
-          </div>
-        )}
-      </section>
-    );
-  };
+            return (
+              <Movie 
+                title={title} 
+                key={id} 
+                year={year} 
+                summary={summary} 
+                poster={poster} 
+                genres={genres}
+              />
+            );
+          })}
+        </div>
+      )}
+    </section>
+  );
 };
 
 export default Home;

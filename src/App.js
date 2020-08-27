@@ -6,18 +6,15 @@ import Home from './routes/Home';
 import Navigation from './components/Navigation';
 import Detail from './components/Detail';
 
-class App extends React.Component{
-
-  render() {
-    return (
-      <HashRouter>
-        <Navigation />
-        <Route path="/" exact={true} component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/movie-detail" component={Detail} />
-      </HashRouter>
-    );
-  };
+function App(){
+  return (
+    <HashRouter>
+      <Navigation />
+      <Route path="/" exact={true} component={Home} />
+      <Route path="/about" component={About} />
+      <Route path="/movie-detail" component={Detail} />
+    </HashRouter>
+  );
 };
 
 export default App;
