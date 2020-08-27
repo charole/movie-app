@@ -20,7 +20,7 @@ function Home(){
 
     console.log(movies);
 
-    setState({ movies, isLoading: false });
+    setState({ ...state, movies, isLoading: false });
   };
 
   useEffect(() => {
